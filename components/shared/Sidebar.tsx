@@ -14,9 +14,9 @@ function Sidebar() {
   return (
     <aside
       className={cn(
-        "w-[260px] h-screen z-10 overflow-hidden bg-white duration-500 ease-in-out",
+        "absolute w-[260px] h-screen z-10 overflow-hidden bg-white duration-500 ease-in-out",
         isSidebarOpen ? "w-[260px]" : "w-[58px]",
-        isMobile && "absolute -left-full top-0 shadow-xl",
+        isMobile && "-left-full top-0 shadow-xl",
         isSidebarOpen && isMobile && "left-0"
       )}
     >

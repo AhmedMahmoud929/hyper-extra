@@ -13,6 +13,7 @@ import {
   slideInFromLeft,
   slideInFromRight,
 } from "@/lib/animationVariants";
+import MainWrapper from "@/components/shared/MainWrapper";
 
 const breadcrumbItems = [
   { label: "Dashboard", href: "/" },
@@ -22,22 +23,20 @@ const breadcrumbItems = [
 
 export default function Home() {
   return (
-    <article className="w-full flex flex-col h-screen flex-grow ">
+    <MainWrapper>
       <Navbar breadcrumbItems={breadcrumbItems} />
 
-      <motion.section
-        
-        className="flex flex-col flex-grow overflow-y-scroll overflow-x-hidden p-[5px] sm:p-[25px]"
-      >
-        <motion.header 
-        initial="initial"
-        animate="animate"
-        className="w-full h-fit flex flex-col gap-3 sm:gap-0 sm:flex-row justify-between items-center">
+      <motion.section className="flex flex-col flex-grow overflow-y-scroll overflow-x-hidden p-[5px] sm:p-[25px]">
+        <motion.header
+          initial="initial"
+          animate="animate"
+          className="w-full h-fit flex flex-col gap-3 sm:gap-0 sm:flex-row justify-between items-center"
+        >
           <motion.h1
             variants={slideInFromLeft}
-            className="text-2xl font-semibold"
+            className="text-2xl font-semibold mt-4 sm:mt-0"
           >
-            Back
+            Add New Product
           </motion.h1>
           <motion.div variants={slideInFromRight}>
             <Link href="/products">
@@ -49,6 +48,6 @@ export default function Home() {
           </motion.div>
         </motion.header>
       </motion.section>
-    </article>
+    </MainWrapper>
   );
 }

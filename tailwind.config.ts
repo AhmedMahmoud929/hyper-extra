@@ -13,6 +13,7 @@ const config: Config = {
         custom: {
           main: "rgba(76, 173, 115, 1)",
           orange: "rgba(255, 165, 47, 1)",
+          iconGray: "rgba(205, 205, 205, 1)",
         },
         background: "hsl(var(--background))",
         foreground: "hsl(var(--foreground))",

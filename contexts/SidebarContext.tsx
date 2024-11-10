@@ -27,11 +27,19 @@ export const SidebarProvider: React.FC<{ children: ReactNode }> = ({
   const router = useRouter();
 
   useEffect(() => {
-    console.log("Is it in Mobile:", isMobile);
-    if (window.innerWidth <= 768) {
-      setIsSidebarOpen(false);
-      setIsMobile(true);
-    }
+    const checkIfMobile = () => {
+      if (window.innerWidth <= 768) {
+        setIsSidebarOpen(false);
+        setIsMobile(true);
+      }
+    };
+    checkIfMobile();
+
+    window.addEventListener("resize", checkIfMobile);
+
+    return () => {
+      window.removeEventListener("resize", checkIfMobile);
+    };
   }, []);
   return (
     <SidebarContext.Provider

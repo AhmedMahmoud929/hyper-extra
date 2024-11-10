@@ -1,5 +1,4 @@
 "use client";
-import { Card, CardContent, CardHeader } from "@/components/ui/card";
 import { Separator } from "@/components/ui/separator";
 import { motion } from "framer-motion";
 import { slideInFromBottom } from "@/lib/animationVariants";
@@ -10,12 +9,12 @@ export default function ProductCard({ product }: { product: Product }) {
   return (
     <motion.div
       initial="initial"
-      whileInView="animate"
+      animate="animate"
       variants={slideInFromBottom}
       custom={+product.id * 0.2}
-      className="bg-white rounded-xl overflow-hidden w-full lg:w-[385px]"
+      className="bg-white rounded-xl overflow-hidden w-full"
     >
-      <CardContent className="p-4">
+      <div className="p-4">
         <div className="flex gap-4">
           <img
             src={product.image + product.id + ".png"}
@@ -63,7 +62,7 @@ export default function ProductCard({ product }: { product: Product }) {
             </div>
           </div>
         </div>
-      </CardContent>
+      </div>
     </motion.div>
   );
 }
