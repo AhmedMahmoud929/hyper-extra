@@ -33,11 +33,14 @@ interface NavbarProps {
 }
 
 export default function Navbar({ breadcrumbItems }: NavbarProps) {
-  const { isSidebarOpen, setIsSidebarOpen } = useSidebarContext();
+  const { isMobile, isSidebarOpen, setIsSidebarOpen } = useSidebarContext();
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
 
   return (
-    <div className="relative h-16 py-5 px-4 md:px-6 border-b w-full flex items-center justify-between">
+    <div className="relative h-16 py-5 px-4 md:px-6 border-b w-full flex items-center justify-between bg-white">
+      {!isMobile && (
+        <div className="absolute -left-4 -top-2/6 h-[120%] w-3 bg-gray-200 blur-md"></div>
+      )}
       {/* LEFT */}
       <div className="flex items-center gap-4 md:gap-6">
         <Sidebar
@@ -67,9 +70,9 @@ export default function Navbar({ breadcrumbItems }: NavbarProps) {
           onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)}
         >
           {isMobileMenuOpen ? (
-            <X className="h-6 w-6 text-gray-400" />
+            <X className="h-[26px] w-[26px] text-gray-400" />
           ) : (
-            <Menu className="h-6 w-6 text-gray-400" />
+            <Menu className="h-[26px] w-[26px] text-gray-400" />
           )}
         </div>
       </div>
