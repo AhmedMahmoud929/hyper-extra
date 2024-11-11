@@ -29,7 +29,7 @@ export default function Component() {
     <div className="relative overflow-hidden flex flex-row h-screen">
       <div
         className={cn(
-          "flex flex-col h-full justify-center px-4 py-12 sm:px-6 lg:flex-none lg:px-20 xl:px-24 duration-500",
+          "flex flex-col h-full justify-center px-4 py-12 sm:px-6 lg:flex-none lg:px-20 xl:px-24 duration-500 ease-in-out",
           isLargeScreen ? "absolute" : "w-full",
           isLargeScreen && isLoginPage ? "right-[5%]" : "right-[57%]"
         )}
@@ -139,7 +139,7 @@ export default function Component() {
       </div>
       <div
         className={cn(
-          "absolute top-0 w-1/2 h-full flex-1 duration-500",
+          "absolute top-0 w-1/2 h-full flex-1 duration-500 ease-in-out",
           isLargeScreen ? "flex items-center justify-center" : "hidden",
           isLargeScreen && isLoginPage ? "left-[5%]" : "left-[43%]"
         )}
