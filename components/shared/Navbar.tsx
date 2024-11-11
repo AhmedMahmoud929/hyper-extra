@@ -131,7 +131,7 @@ export default function Navbar({ breadcrumbItems }: NavbarProps) {
 
       {/* Mobile Menu */}
       {isMobileMenuOpen && (
-        <div className="absolute top-[80%] w-[75%] left-[15%] right-0 bg-white border-b shadow-lg md:hidden">
+        <div className="absolute top-[80%] w-[75%] left-[15%] right-0 bg-white border-b shadow-lg border md:hidden">
           <div className="p-4">
             <Breadcrumb>
               <BreadcrumbList>
