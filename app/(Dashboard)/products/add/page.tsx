@@ -120,7 +120,7 @@ export default function Home() {
           <div className="flex flex-col lg:flex-row gap-6">
             {/* Left */}
             <div className="space-y-3 flex-grow">
-              <div>
+              <motion.div variants={slideInFromLeft} custom={0.2}>
                 <Label htmlFor="productName" className={FORM_STYLING.label}>
                   Product Name
                 </Label>
@@ -129,9 +129,9 @@ export default function Home() {
                   placeholder="Lorem Ipsum"
                   className={FORM_STYLING.inp}
                 />
-              </div>
+              </motion.div>
 
-              <div>
+              <motion.div variants={slideInFromLeft} custom={0.4}>
                 <Label htmlFor="description" className={FORM_STYLING.label}>
                   Description
                 </Label>
@@ -140,9 +140,9 @@ export default function Home() {
                   placeholder="This is a dummy description"
                   className={cn("min-h-[100px]", FORM_STYLING.inp)}
                 />
-              </div>
+              </motion.div>
 
-              <div>
+              <motion.div variants={slideInFromLeft} custom={0.6}>
                 <Label htmlFor="category" className={FORM_STYLING.label}>
                   Category
                 </Label>
@@ -151,9 +151,9 @@ export default function Home() {
                   placeholder="Friuts"
                   className={FORM_STYLING.inp}
                 />
-              </div>
+              </motion.div>
 
-              <div>
+              <motion.div variants={slideInFromLeft} custom={0.8}>
                 <Label htmlFor="brandName" className={FORM_STYLING.label}>
                   Brand Name
                 </Label>
@@ -162,10 +162,10 @@ export default function Home() {
                   placeholder="Dummy-name"
                   className={FORM_STYLING.inp}
                 />
-              </div>
+              </motion.div>
 
               <div className="grid grid-cols-2 gap-4">
-                <div>
+                <motion.div variants={slideInFromLeft} custom={1}>
                   <Label htmlFor="id" className={FORM_STYLING.label}>
                     ID
                   </Label>
@@ -174,8 +174,8 @@ export default function Home() {
                     placeholder="#819123"
                     className={FORM_STYLING.inp}
                   />
-                </div>
-                <div>
+                </motion.div>
+                <motion.div variants={slideInFromLeft} custom={1.1}>
                   <Label htmlFor="stockQuantity" className={FORM_STYLING.label}>
                     Stock Quantity
                   </Label>
@@ -185,11 +185,11 @@ export default function Home() {
                     placeholder="1820"
                     className={FORM_STYLING.inp}
                   />
-                </div>
+                </motion.div>
               </div>
 
               <div className="grid grid-cols-2 gap-4">
-                <div>
+                <motion.div variants={slideInFromLeft} custom={1.3}>
                   <Label htmlFor="regularPrice" className={FORM_STYLING.label}>
                     Regular Price
                   </Label>
@@ -200,8 +200,8 @@ export default function Home() {
                     placeholder="0.00"
                     className={FORM_STYLING.inp}
                   />
-                </div>
-                <div>
+                </motion.div>
+                <motion.div variants={slideInFromLeft} custom={1.4}>
                   <Label htmlFor="salePrice" className={FORM_STYLING.label}>
                     Sale Price
                   </Label>
@@ -212,11 +212,15 @@ export default function Home() {
                     placeholder="0.00"
                     className={FORM_STYLING.inp}
                   />
-                </div>
+                </motion.div>
               </div>
             </div>
             {/* Right */}
-            <div className="flex flex-col w-full lg:w-[400px]">
+            <motion.div
+              variants={slideInFromRight}
+              custom={0.4}
+              className="flex flex-col w-full lg:w-[400px]"
+            >
               {/* Main */}
               <Label className={FORM_STYLING.label + " mt-[7px] mb-[6px]"}>
                 Product Cover
@@ -338,7 +342,7 @@ export default function Home() {
                   Create
                 </Button>
               </div>
-            </div>
+            </motion.div>
           </div>
         </form>
       </motion.section>
