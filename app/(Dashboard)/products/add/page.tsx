@@ -138,7 +138,7 @@ export default function Home() {
                 <Textarea
                   id="description"
                   placeholder="This is a dummy description"
-                  className={cn("min-h-[100px]", FORM_STYLING.inp)}
+                  className={cn("min-h-[186px]", FORM_STYLING.inp)}
                 />
               </motion.div>
 
@@ -153,25 +153,15 @@ export default function Home() {
                 />
               </motion.div>
 
-              <motion.div variants={slideInFromLeft} custom={0.8}>
-                <Label htmlFor="brandName" className={FORM_STYLING.label}>
-                  Brand Name
-                </Label>
-                <Input
-                  id="brandName"
-                  placeholder="Dummy-name"
-                  className={FORM_STYLING.inp}
-                />
-              </motion.div>
-
+         
               <div className="grid grid-cols-2 gap-4">
-                <motion.div variants={slideInFromLeft} custom={1}>
-                  <Label htmlFor="id" className={FORM_STYLING.label}>
-                    ID
+                <motion.div variants={slideInFromLeft} custom={0.8}>
+                  <Label htmlFor="brandName" className={FORM_STYLING.label}>
+                    Brand Name
                   </Label>
                   <Input
-                    id="id"
-                    placeholder="#819123"
+                    id="brandName"
+                    placeholder="Dummy-name"
                     className={FORM_STYLING.inp}
                   />
                 </motion.div>
