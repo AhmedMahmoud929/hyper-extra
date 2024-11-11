@@ -3,15 +3,9 @@
 import Link from "next/link";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
-import { GithubIcon, LogIn, Phone, UserPlus } from "lucide-react";
+import { LogIn, UserPlus } from "lucide-react";
 import { cn } from "@/lib/utils";
-import { Label } from "@/components/ui/label";
-import Image from "next/image";
-import AnimatedQueue from "../_components/AnimatedQueue";
 import { useEffect, useState } from "react";
-import { AnimatePresence, motion } from "framer-motion";
-import { slideInFromBottom } from "@/lib/animationVariants";
-import { useSidebarContext } from "@/contexts/SidebarContext";
 
 export default function Component() {
   const [isLoginPage, setIsLoginPage] = useState(false);
