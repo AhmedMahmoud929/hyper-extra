@@ -1,7 +1,6 @@
 import {
   Pagination,
   PaginationContent,
-  PaginationEllipsis,
   PaginationItem,
   PaginationLink,
   PaginationNext,
@@ -10,43 +9,21 @@ import {
 
 interface PaginationProps {
   baseUrl: string;
-  itemsCount: number;
+  totalItems: number;
+  totalPages: number;
   currentPage: number;
-  visibleItems: number; 
+  pageSize: number;
 }
 
 export function PaginationCont({
-  itemsCount,
+  totalItems,
   baseUrl,
   currentPage,
-  visibleItems,
+  totalPages,
+  pageSize,
 }: PaginationProps) {
-  // Determine the page numbers to display
-  const pages = [];
-  const totalPages = itemsCount;
-
-  if (totalPages <= visibleItems) {
-    // If total pages is less than or equal to visible items, show all pages
-    for (let i = 1; i <= totalPages; i++) {
-      pages.push(i);
-    }
-  } else {
-    // Calculate the range around the current page
-    const startPage = Math.max(1, currentPage - Math.floor(visibleItems / 2));
-    const endPage = Math.min(totalPages, startPage + visibleItems - 1);
-
-    // Adjust startPage if we're near the end
-    if (endPage - startPage + 1 < visibleItems) {
-      const newStartPage = Math.max(1, endPage - visibleItems + 1);
-      for (let i = newStartPage; i <= endPage; i++) {
-        pages.push(i);
-      }
-    } else {
-      for (let i = startPage; i <= endPage; i++) {
-        pages.push(i);
-      }
-    }
-  }
+  const isFirstPage = currentPage === 1;
+  const isLastPage = currentPage === totalPages;
 
   return (
     <div className="h-16 flex items-center justify-center">
@@ -54,52 +31,27 @@ export function PaginationCont({
         <PaginationContent>
           {/* Previous */}
           <PaginationItem>
-            <PaginationPrevious href="#" />
+            <PaginationPrevious
+              href={isFirstPage ? "#" : `${baseUrl}/${currentPage - 1}`}
+              aria-disabled={isFirstPage}
+              className={isFirstPage ? "pointer-events-none opacity-50" : ""}
+            />
           </PaginationItem>
 
-          {/* First Page with Ellipsis if needed */}
-          {currentPage > Math.floor(visibleItems / 2) &&
-            totalPages > visibleItems && (
-              <>
-                <PaginationItem>
-                  <PaginationLink href={`${baseUrl}/1`}>1</PaginationLink>
-                </PaginationItem>
-                <PaginationItem>
-                  <PaginationEllipsis />
-                </PaginationItem>
-              </>
-            )}
-
-          {/* Pagination Items */}
-          {pages.map((page) => (
-            <PaginationItem key={page}>
-              <PaginationLink
-                href={`${baseUrl}/${page}`}
-                isActive={page === currentPage}
-              >
-                {page}
-              </PaginationLink>
-            </PaginationItem>
-          ))}
-
-          {/* Last Page with Ellipsis if needed */}
-          {currentPage < totalPages - Math.floor(visibleItems / 2) &&
-            totalPages > visibleItems && (
-              <>
-                <PaginationItem>
-                  <PaginationEllipsis />
-                </PaginationItem>
-                <PaginationItem>
-                  <PaginationLink href={`${baseUrl}/${totalPages}`}>
-                    {totalPages}
-                  </PaginationLink>
-                </PaginationItem>
-              </>
-            )}
+          {/* Current Page */}
+          <PaginationItem>
+            <PaginationLink href="#" isActive>
+              {currentPage}
+            </PaginationLink>
+          </PaginationItem>
 
           {/* Next */}
           <PaginationItem>
-            <PaginationNext href="#" />
+            <PaginationNext
+              href={isLastPage ? "#" : `${baseUrl}/${currentPage + 1}`}
+              aria-disabled={isLastPage}
+              className={isLastPage ? "pointer-events-none opacity-50" : ""}
+            />
           </PaginationItem>
         </PaginationContent>
       </Pagination>

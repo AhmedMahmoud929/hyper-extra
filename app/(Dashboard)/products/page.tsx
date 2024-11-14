@@ -1,69 +1,74 @@
 "use client";
 import Navbar from "@/components/shared/Navbar";
-import { PaginationCont } from "@/components/shared/Pagination";
-import { Button } from "@/components/ui/button";
-import { products } from "@/constants";
+
 import { PlusCircle } from "lucide-react";
 import { motion } from "framer-motion";
-import {
-  slideInFromBottom,
-  slideInFromLeft,
-  slideInFromRight,
-} from "@/lib/animationVariants";
+import { fadeIn } from "@/lib/animationVariants";
 import ProductCard from "./_components/ProductCard";
-import Link from "next/link";
-import { useSidebarContext } from "@/contexts/SidebarContext";
-import { cn } from "@/lib/utils";
 import MainWrapper from "@/components/shared/MainWrapper";
+import { Product } from "@/lib/types";
+import { Skeleton } from "@/components/ui/skeleton";
+import MainHeader from "@/components/shared/MainHeader";
+import { useAllProducts } from "@/api/endpoints/products";
 
 const breadcrumbItems = [
   { label: "Dashboard", href: "/" },
   { label: "Products", href: "/products" },
 ];
 
+const headerInfo = {
+  title: "All Product",
+  btn: {
+    label: "Add New Product",
+    icon: <PlusCircle />,
+    href: "/products/add",
+  },
+};
+
 export default function Page() {
-  const itemsCount = 3;
-  const currentPage = 2;
-  const visibleItems = 3;
-  const baseUrl = "/pages";
+  const { data, isLoading } = useAllProducts();
 
   return (
     <MainWrapper>
       <Navbar breadcrumbItems={breadcrumbItems} />
       <motion.section className="flex w-full flex-col flex-grow overflow-y-scroll overflow-x-hidden p-[5px] sm:p-[25px]">
-        <motion.header
-          initial="initial"
-          animate="animate"
-          className="w-full h-fit flex flex-col gap-3 sm:gap-0 sm:flex-row justify-between items-center"
-        >
-          <motion.h1
-            variants={slideInFromLeft}
-            className="text-2xl font-semibold mt-4 sm:mt-0"
-          >
-            All Products
-          </motion.h1>
-          <motion.div variants={slideInFromRight}>
-            <Link href="/products/add">
-              <Button>
-                <PlusCircle />
-                Add New Product
-              </Button>
-            </Link>
-          </motion.div>
-        </motion.header>
+        {/* HEADER */}
+        <MainHeader data={headerInfo} />
 
-        <div className="grid grid-cols-[repeat(auto-fit,minmax(350px,1fr))] gap-4 mt-[20px] mb-[30px]">
-          {products.map((product, ix) => (
-            <ProductCard key={product.id} product={product} />
-          ))}
-          {/* <ProductCard key={product.id} product={product} /> */}
-        </div>
-        <PaginationCont
-          itemsCount={itemsCount}
-          currentPage={currentPage}
-          visibleItems={visibleItems}
-          baseUrl={baseUrl}
-        />
+        {/* LOADER */}
+        {isLoading && (
+          <div className="grid grid-cols-[repeat(auto-fit,minmax(350px,1fr))] gap-4 mt-[20px] mb-[30px]">
+            {"123456789".split("").map((_, ix) => (
+              <motion.div
+                key={ix}
+                initial="initial"
+                animate="animate"
+                variants={fadeIn}
+              >
+                <Skeleton className="rounded-xl bg-gray-200 h-[270px] w-full" />
+              </motion.div>
+            ))}
+          </div>
+        )}
+
+        {/* PRODUCTS & PAGINATION */}
+        {!isLoading && (
+          <>
+            <div className="grid grid-cols-[repeat(auto-fit,minmax(350px,1fr))] gap-4 mt-[20px] mb-[30px]">
+              {data.productList.map((product: Product, ix: number) => (
+                <ProductCard key={product._id} ix={ix} product={product} />
+              ))}
+            </div>
+
+            {/* <PaginationCont
+              totalItems={data.pagination.totalItems}
+              totalPages={data.pagination.totalPages}
+              currentPage={data.pagination.currentPage}
+              pageSize={data.pagination.pageSize}
+              baseUrl="/products"
+            /> */}
+          </>
+        )}
       </motion.section>
     </MainWrapper>
   );

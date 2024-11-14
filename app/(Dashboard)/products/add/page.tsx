@@ -1,23 +1,7 @@
 "use client";
 
 import Navbar from "@/components/shared/Navbar";
-import {
-  CheckCircle,
-  Edit,
-  Edit2,
-  Edit3,
-  Eraser,
-  Image,
-  ImageUp,
-  Replace,
-  ReplaceAll,
-  Trash,
-  Undo,
-  Undo2,
-  UndoDot,
-  X,
-} from "lucide-react";
-import Link from "next/link";
+import { CheckCircle, Eraser, ImageUp, Trash, Undo, X } from "lucide-react";
 import { motion } from "framer-motion";
 import { slideInFromLeft, slideInFromRight } from "@/lib/animationVariants";
 import MainWrapper from "@/components/shared/MainWrapper";
@@ -27,8 +11,19 @@ import { Input } from "@/components/ui/input";
 import { useState } from "react";
 import { Textarea } from "@/components/ui/textarea";
 import { Label } from "@/components/ui/label";
-import { Card } from "@/components/ui/card";
 import { cn } from "@/lib/utils";
+import MainHeader from "@/components/shared/MainHeader";
+import {
+  Select,
+  SelectContent,
+  SelectGroup,
+  SelectItem,
+  SelectLabel,
+  SelectTrigger,
+  SelectValue,
+} from "@/components/ui/select";
+import { useAllCategories } from "@/api/endpoints/categories";
+import { Category } from "@/lib/types";
 
 const breadcrumbItems = [
   { label: "Dashboard", href: "/" },
@@ -36,14 +31,24 @@ const breadcrumbItems = [
   { label: "Add", href: "/products/add" },
 ];
 
+const headerInfo = {
+  title: "Add New Product",
+  btn: {
+    label: "Back To Products",
+    icon: <Undo />,
+    href: "/products",
+  },
+};
+
 const FORM_STYLING = {
-  inp: "border border-black/50 focus-visible:ring-1 focus-visible:ring-offset-0 mt-1",
+  inp: "border border-black/50 focus:ring-1 focus:ring-offset-0 focus-visible:ring-1 focus-visible:ring-offset-0 mt-1",
   label: "font-medium",
 };
 
 export default function Home() {
   const [images, setImages] = useState<File[]>([]);
   const [mainImage, setMainImage] = useState<string>("");
+  const { data: allCategories, isLoading } = useAllCategories();
 
   const handleDrop = (e: React.DragEvent) => {
     e.preventDefault();
@@ -89,30 +94,7 @@ export default function Home() {
         className="flex flex-col flex-grow overflow-y-scroll overflow-x-hidden p-[5px] sm:p-[25px]"
       >
         {/* HEADER */}
-        <header className="w-full h-fit flex flex-col gap-3 sm:gap-0 sm:flex-row justify-between items-center">
-          <motion.h1
-            variants={slideInFromLeft}
-            className="text-2xl font-semibold mt-4 sm:mt-0"
-          >
-            Add New Product
-          </motion.h1>
-          <motion.div variants={slideInFromRight} className="flex gap-2">
-            <Link href="/products">
-              <Button>
-                <Undo />
-                Back To Products
-              </Button>
-            </Link>
-            <Button variant="destructive" className="hidden ml-4 px-6">
-              <Trash />
-              Delete
-            </Button>
-            <Button className="hidden  px-6">
-              <CheckCircle />
-              Create
-            </Button>
-          </motion.div>
-        </header>
+        <MainHeader data={headerInfo} />
 
         {/* FORM */}
         <form className="bg-white p-6 rounded-xl mt-4">
@@ -146,14 +128,36 @@ export default function Home() {
                 <Label htmlFor="category" className={FORM_STYLING.label}>
                   Category
                 </Label>
-                <Input
+                {/* <Input
                   id="category"
                   placeholder="Friuts"
                   className={FORM_STYLING.inp}
-                />
+                /> */}
+                <Select>
+                  <SelectTrigger className={FORM_STYLING.inp}>
+                    <SelectValue placeholder="Select a categories" />
+                  </SelectTrigger>
+                  <SelectContent>
+                    <SelectGroup>
+                      <SelectLabel>
+                        {isLoading ? "Please Wait" : "Categories"}
+                      </SelectLabel>
+
+                      {!!allCategories &&
+                        allCategories.map((cat: Category, ix: number) => (
+                          <SelectItem
+                            key={ix}
+                            value={cat.name}
+                            className="capitalize cursor-pointer"
+                          >
+                            {cat.name}
+                          </SelectItem>
+                        ))}
+                    </SelectGroup>
+                  </SelectContent>
+                </Select>
               </motion.div>
 
-         
               <div className="grid grid-cols-2 gap-4">
                 <motion.div variants={slideInFromLeft} custom={0.8}>
                   <Label htmlFor="brandName" className={FORM_STYLING.label}>

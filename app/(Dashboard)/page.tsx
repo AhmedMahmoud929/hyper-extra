@@ -8,7 +8,7 @@ export default function Page() {
     <MainWrapper>
       <Navbar breadcrumbItems={breadcrumbItems} />
       <section className="flex flex-grow justify-center items-center">
-        TEST
+        DASHBOARD
       </section>
     </MainWrapper>
   );

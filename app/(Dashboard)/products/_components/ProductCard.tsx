@@ -5,28 +5,36 @@ import { slideInFromBottom } from "@/lib/animationVariants";
 import { Product } from "@/lib/types";
 import { MoreVertical, TrendingUp } from "lucide-react";
 
-export default function ProductCard({ product }: { product: Product }) {
+export default function ProductCard({
+  product,
+  ix,
+}: {
+  product: Product;
+  ix: number;
+}) {
   return (
     <motion.div
       initial="initial"
       animate="animate"
       variants={slideInFromBottom}
-      custom={+product.id * 0.2}
+      custom={0.2 + ix * 0.2}
       className="bg-white rounded-xl overflow-hidden w-full"
     >
       <div className="p-4">
         <div className="flex gap-4">
           <img
-            src={product.image + product.id + ".png"}
-            alt={product.title}
-            className="h-20 w-20 rounded-lg object-cover"
+            src={product.image + ++ix + ".png"}
+            alt={product.name}
+            className="h-20 w-20 bg-gray-200 rounded-lg object-cover"
           />
           <div className="flex-1">
             <div className="flex items-start justify-between">
               <div>
-                <h3 className="font-medium">{product.title}</h3>
+                <h3 className="font-medium">{product.name}</h3>
                 <p className="text-sm text-muted-foreground">
-                  {product.category}
+                  {product.category?.name
+                    ? product.category.name
+                    : "Deleted category"}
                 </p>
                 <p className="mt-1 font-medium">₹{product.price.toFixed(2)}</p>
               </div>
@@ -38,7 +46,9 @@ export default function ProductCard({ product }: { product: Product }) {
         </div>
         <div className="mt-4">
           <h4 className="font-medium w-full">Summary</h4>
-          <p className="text-sm text-muted-foreground">{product.summary}</p>
+          <p className="text-sm text-muted-foreground">
+            {product.description.slice(0, 200)}
+          </p>
 
           <div className="mt-4 space-y-2 border-2 py-2 px-4 rounded-xl">
             <div className="flex items-center justify-between">

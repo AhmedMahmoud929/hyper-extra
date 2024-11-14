@@ -2,8 +2,9 @@ import type { Metadata } from "next";
 import localFont from "next/font/local";
 import "../globals.css";
 import Sidebar from "@/components/shared/Sidebar";
-import Navbar from "@/components/shared/Navbar";
 import { SidebarProvider } from "@/contexts/SidebarContext";
+import ReactQueryProvider from "@/providers/ReactQueryProvider";
+import { Toaster } from "@/components/ui/sonner";
 const geistSans = localFont({
   src: "../fonts/GeistVF.woff",
   variable: "--font-geist-sans",
@@ -27,14 +28,17 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="en">
-      <SidebarProvider>
-        <body
-          className={`${geistSans.variable} ${geistMono.variable} antialiased flex overflow-hidden w-screen h-screen bg-gray-100`}
-        >
-          <Sidebar />
-          {children}
-        </body>
-      </SidebarProvider>
+      <ReactQueryProvider>
+        <SidebarProvider>
+          <body
+            className={`${geistSans.variable} ${geistMono.variable} antialiased flex overflow-hidden w-screen h-screen bg-gray-100`}
+          >
+            <Sidebar />
+            {children}
+            <Toaster />
+          </body>
+        </SidebarProvider>
+      </ReactQueryProvider>
     </html>
   );
 }

@@ -2,6 +2,8 @@ import { Product } from "@/lib/types";
 import {
   Apple,
   CreditCard,
+  Flower,
+  Flower2,
   LayoutDashboard,
   Logs,
   Package,
@@ -56,6 +58,11 @@ export const sidebarItems = [
     label: "Settings",
     icon: <Settings />,
     href: "/settings",
+  },
+  {
+    label: "React Query",
+    icon: <Flower2 />,
+    href: "/reactQuery",
   },
 ];
 

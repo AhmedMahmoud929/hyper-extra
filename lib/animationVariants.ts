@@ -106,6 +106,7 @@ export const slideInFromBottom: Variants = {
       delay,
       ease: "easeOut",
     },
+    
   }),
   
 };
